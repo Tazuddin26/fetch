@@ -1,20 +1,19 @@
 import { useEffect, useState } from 'react';
 const map = (array, fn) => {
-    const secondArray = [];     
+    const secondArray = [];
     const len = array.length;
-    let o = 0;
-    while (o < len) {
-        const w = fn(array[o], o);
+    let i = 0;
+    while (i < len) {
+        const w = fn(array[i], i);
         secondArray.push(w);
-        o = o + 1;
+        i = i + 1;
     }
     return secondArray;
 }
-
-function Fetch() {
-    const [arabic, setArabic] = useState("");
-    useEffect(() => {
-        const url = 'https://raw.githubusercontent.com/Balagha/dhikr/main/public/data/dhikr.json'
+function Words() {
+    const [arabic, setArabic] = useState();
+    useEffect(()=>{
+        const url = 'https://raw.githubusercontent.com/Balagha/dhikr/main/public/data/words.json'
         fetch(url)
             .then((response) => {
                 return response.json();
@@ -22,18 +21,13 @@ function Fetch() {
             .then((data) => {
                 const s = map(data, (x, i) =>
                     <div className='flex justyfy-center'>{i + 1}:
-                        <p className='text-xl text-red-400 p-2'>{x.ARABIC}</p>:
-                        <p className='text-xl text-green-600 p-2'>{x.BANGLA_UCCHARON}</p>:
-                        <p className='text-xl text-blue-500 p-2'>{x.BANGLA_ORTHO}</p>
+                        <p className='text-xl text-red-400 p-2'>{x[0]}</p>
+                        <p className='text-xl text-green-600 p-2'>{x[1]}</p>
                     </div>);
-
+               
                 setArabic(s);
             });
-
-            let num = []
-            
-    }, []);
-
+    },[]);
     return (
         <div className='flex flex-row w-full h-full'>
             <div className='w-2/12 h-full'></div>
@@ -44,5 +38,5 @@ function Fetch() {
         </div>
     )
 };
-export default Fetch;
+export default Words;
 

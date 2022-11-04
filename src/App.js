@@ -1,22 +1,16 @@
+
 import logo from './logo.svg';
 import './App.css';
-import { useState } from 'react';
-
+import { Routes, Route, Link } from "react-router-dom";
+import Fetch from './fetch';
+import Pagination from './pagination';
 function App() {
-  const [arabic, setArabic] = useState();
-  fetch('https://raw.githubusercontent.com/Balagha/dhikr/main/public/data/dhikr.json')
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      const s = data.map(x => x.ARABIC);
-      setArabic(s);
-    });
   return (
-    <div className="App">
-      {arabic}
+    <div className="App">   
+      <Routes>
+        <Route path="/pagination" element={<Pagination/>} />
+      </Routes>
     </div>
-  );
-}
-
+  )
+};
 export default App;
